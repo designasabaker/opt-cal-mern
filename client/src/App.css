@@ -1,0 +1,116 @@
+:root{
+    --color-body-bg: #f8f8f8;
+    --color-title: #007400;
+    --color-text: #0e0d0d;
+}
+
+*{
+    margin:0;
+    padding:0;
+}
+
+body{
+    background: var(--color-body-bg);
+}
+
+.navbar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: content-box;
+}
+
+.cacu-display-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+hr{
+    width: 100%;
+    margin: 20px 0;
+    opacity: 0.1;
+}
+
+.vertical-line{
+    height: 100%;
+    width: 1px;
+    background-color: black;
+    opacity: 0.1;
+    margin: 0 20px;
+}
+
+h1{
+    margin-bottom: 30px;
+    color: var(--color-title);
+}
+
+p, label, span, button{
+    color: var(--color-text);
+}
+
+.start-time-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.time-period {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 3px;
+}
+
+input[type="date"] {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    background-color: rgba(51, 51, 51, 0.05);
+    border-radius: 8px;
+    border-width: 0;
+    color: #333333;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    margin: 3px 0;
+    padding: 6px 12px;
+    text-align: center;
+    transition: all 200ms;
+    vertical-align: baseline;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.refresh-btn-container{
+    margin: 20px 0;
+}
