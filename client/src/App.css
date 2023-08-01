@@ -67,6 +67,11 @@ p, label, span, button{
     color: var(--color-text);
 }
 
+.err{
+    color: red;
+    font-weight: bold;
+}
+
 .start-time-container{
     display: flex;
     flex-direction: row;

@@ -80,7 +80,7 @@ const UnemploymentCalculator = () => {
             <div className="cacu-display-container">
                 <div className="display-container">
                     <p>{isNaN(state.totalTime) ? '请输入开始日期、每个时间段，谢谢' : `${state.totalTime} 天`}</p>
-                    <p>{state.error}</p>
+                    <p className={"err"}>{state.error}</p>
                     <h2>总失业期</h2>
                 </div>
                 <div className="vertical-line"></div>
@@ -99,9 +99,9 @@ const UnemploymentCalculator = () => {
                 </div>
             </div>
             <div className="refresh-btn-container">
-                {user && <button onClick={getBtnClickHandler}>Get my state</button>}
+                {user && <button onClick={getBtnClickHandler}>获取我的数据</button>}
                 <button onClick={() => dispatch({ type: actionTypes.RESET })}>清空</button>
-                {user && <button onClick={saveBtnClickHandler}>SAVE</button>}
+                {user && <button onClick={saveBtnClickHandler}>保存至云端</button>}
             </div>
         </div>
     );

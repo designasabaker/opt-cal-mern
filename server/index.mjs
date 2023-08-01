@@ -4,13 +4,13 @@ import "./loadEnv.mjs";
 import records from "./routes/record.mjs";
 import users from "./routes/users.mjs";
 import mongoose from "mongoose";  // Import users routes
-import morgan from 'morgan';
+// import morgan from 'morgan';
 
 const PORT = process.env.PORT || 5050;
 const app = express();
-if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'));
-}
+// if (process.env.NODE_ENV === 'development') {
+//     app.use(morgan('dev'));
+// }
 app.use(cors());
 app.use(express.json());
 
