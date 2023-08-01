@@ -14,6 +14,8 @@ const actionTypes = {
     SET_OPT_START: 'setOptStart',
     SET_TOTAL_TIME: 'setTotalTime',
     SET_ERROR: 'setError',
+    SET_STATE: 'setState',
+    CLEAR: 'clear',
 };
 
 function reducer(state, action) {
@@ -36,6 +38,10 @@ function reducer(state, action) {
             return { ...state, totalTime: action.value };
         case actionTypes.SET_ERROR:
             return { ...state, error: action.value };
+        case actionTypes.SET_STATE:
+            return action.value;
+        case actionTypes.CLEAR:
+            return initialState;
         default:
             throw new Error();
     }

@@ -1,36 +1,52 @@
 import React, { useEffect, useReducer } from 'react';
 import TimePeriod from './TimePeriod';
 import { initialState, actionTypes, reducer } from '../reducer/UnemploymentReducer.js';
+import {useUser} from "../context/UserContext.jsx";
 
 const LOCAL_STORAGE_KEY = 'OPT-state';
 
-const loadState = () => {
-    try {
-        const serializedState = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (serializedState === null) {
-            return initialState;
-        }
-        return JSON.parse(serializedState);
-    } catch (err) {
-        return initialState;
-    }
-};
-
-const saveState = (state) => {
-    try {
-        const serializedState = JSON.stringify(state);
-        localStorage.setItem(LOCAL_STORAGE_KEY, serializedState);
-    } catch {
-        // ignore write errors
-    }
-};
+// const loadStateFromLocalStorage = () => {
+//     try {
+//         const serializedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+//         if (serializedState === null) {
+//             return initialState;
+//         }
+//         return JSON.parse(serializedState);
+//     } catch (err) {
+//         return initialState;
+//     }
+// };
+//
+// const saveStateToLocalStorage = (state) => {
+//     try {
+//         const serializedState = JSON.stringify(state);
+//         localStorage.setItem(LOCAL_STORAGE_KEY, serializedState);
+//     } catch {
+//         // ignore write errors
+//     }
+// };
 
 const UnemploymentCalculator = () => {
-    const [state, dispatch] = useReducer(reducer, loadState());
+    const { user, getState, saveState, state, dispatch } = useUser();
 
-    useEffect(() => {
+
+    const saveBtnClickHandler = () => {
+        console.log('clicked')
         saveState(state);
-    }, [state]);
+    }
+
+    const getBtnClickHandler = async () => {
+        const loadedState = await getState();
+        console.log('get state', loadedState);
+        if(state){
+            try{
+                dispatch({ type: actionTypes.SET_STATE, value: loadedState });
+            }
+            catch (err){
+                console.log(err);
+            }
+        }
+    }
 
     useEffect(() => {
         let total = 0;
@@ -83,7 +99,9 @@ const UnemploymentCalculator = () => {
                 </div>
             </div>
             <div className="refresh-btn-container">
-                <button onClick={() => dispatch({ type: actionTypes.RESET })}>刷新</button>
+                {user && <button onClick={getBtnClickHandler}>Get my state</button>}
+                <button onClick={() => dispatch({ type: actionTypes.RESET })}>清空</button>
+                {user && <button onClick={saveBtnClickHandler}>SAVE</button>}
             </div>
         </div>
     );

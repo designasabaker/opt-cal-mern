@@ -15,9 +15,10 @@ const checkJwt = (req, res, next) => {
 
     jsonwebtoken.verify(token, process.env.JWT_SECRET, (err, payload) => {
         if (err) {
+            console.log('JWT verification error:', err);
             return res.status(401).send('Invalid access token');
         }
-
+        console.log('JWT payload:', payload);
         req.user = payload;  // Add the payload to the request object
         next();  // Continue to the next middleware or route handler
     });

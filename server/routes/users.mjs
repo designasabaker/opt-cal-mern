@@ -31,7 +31,7 @@ router.post('/login', async (req, res) => {
         return;
     }
 
-    const token = jwt.sign({ id: user.id }, 'your-jwt-secret', { expiresIn: '1h' });  // Replace 'your-jwt-secret' with your actual JWT secret
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });  // Replace 'your-jwt-secret' with your actual JWT secret
     const message = 'Good Luck!';
 
     res.json({ token, user, message });
