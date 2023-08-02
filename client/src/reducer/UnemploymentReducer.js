@@ -39,7 +39,7 @@ function reducer(state, action) {
         case actionTypes.SET_ERROR:
             return { ...state, error: action.value };
         case actionTypes.SET_STATE:
-            if(!action.value.timePeriods || !action.value.optStart || !action.value.totalTime || !action.value.error) {
+            if(!action.value.timePeriods && !action.value.optStart && !action.value.totalTime && !action.value.error) {
                 return
             }
             return action.value;

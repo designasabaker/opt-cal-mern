@@ -6,6 +6,7 @@ const UserContext = React.createContext();
 export function UserProvider({ children }) {
     const [user, setUser] = useState(null);
     const [showLogin, setShowLogin] = useState(false);
+    const [isLogining, setIsLogining] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
     const [err, setErr] = useState('');
     const [banner, setBanner] = useState('');
@@ -85,6 +86,7 @@ export function UserProvider({ children }) {
     }
 
     const login = async (username, password) => {
+        setIsLogining(true);
         const response = await fetch(`${apiUrl}/users/login`, {  // Replace with your actual login endpoint
             method: 'POST',
             headers: {
@@ -97,6 +99,7 @@ export function UserProvider({ children }) {
             // Handle error
             console.error('Failed to login');
             setErr(`Failed to login: ${response.statusText}`);
+            setIsLogining(false);
             return;
         }
 
@@ -112,6 +115,7 @@ export function UserProvider({ children }) {
         setShowLogin(false); // Close the login box
         setBanner(message);
         setErr('');
+        setIsLogining(false);
     };
 
     const logout = () => {
@@ -123,12 +127,13 @@ export function UserProvider({ children }) {
 
     };
 
-    const [state, dispatch] = useReducer(reducer, initialState, undefined);
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     return (
         <UserContext.Provider value={{
             user,
             register,
+            isLogining,
             login,
             logout,
             err,

@@ -48,7 +48,7 @@ const UnemploymentCalculator = () => {
         }
     }
 
-    useEffect(() => {
+    const updateTotalTime = () => {
         let total = 0;
         let err = '';
         for (let i = 0; i < state.timePeriods.length; i++) {
@@ -71,15 +71,15 @@ const UnemploymentCalculator = () => {
             total += Math.abs(endTime - startTime) / (1000 * 60 * 60 * 24);
         }
         dispatch({ type: actionTypes.SET_ERROR, value: err });
-        dispatch({ type: actionTypes.SET_TOTAL_TIME, value: total });
-    }, [state.optStart, state.timePeriods]);
+        dispatch({ type: actionTypes.SET_TOTAL_TIME, value: total })
+    }
 
     return (
-        <div className="app">
+        <div className="app" onChange={()=>updateTotalTime()}>
             <h1>OPT失业期计算器</h1>
             <div className="cacu-display-container">
                 <div className="display-container">
-                    <p>{isNaN(state.totalTime) ? '请输入开始日期、每个时间段，谢谢' : `${state.totalTime} 天`}</p>
+                    <p>{isNaN(state.totalTime) ? '请输入开始日期、每个时间段，谢谢' : `${state?.totalTime} 天`}</p>
                     <p className={"err"}>{state.error}</p>
                     <h2>总失业期</h2>
                 </div>

@@ -1,7 +1,7 @@
 import {useUser} from "../context/UserContext.jsx";
 
 export function LoginBox(){
-    const {login, setShowLogin, setShowRegister} = useUser();
+    const {login, isLogining, setShowLogin, setShowRegister} = useUser();
     return (
         <div className="loginBox">
             <form
@@ -10,6 +10,7 @@ export function LoginBox(){
                     login(e.target.username.value, e.target.password.value);
                 }}
             >
+                {isLogining && <div>Logging in...</div>}
                 <label>
                     Username:
                     <input type="text" name="username" />
