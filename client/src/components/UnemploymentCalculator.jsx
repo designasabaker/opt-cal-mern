@@ -74,8 +74,12 @@ const UnemploymentCalculator = () => {
         dispatch({ type: actionTypes.SET_TOTAL_TIME, value: total })
     }
 
+    useEffect(() => {
+        updateTotalTime();
+    },[state.timePeriods, state.optStart])
+
     return (
-        <div className="app" onChange={()=>updateTotalTime()}>
+        <div className="app" >
             <h1>OPT失业期计算器</h1>
             <div className="cacu-display-container">
                 <div className="display-container">
