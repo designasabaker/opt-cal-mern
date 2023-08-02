@@ -2,6 +2,7 @@
     --color-body-bg: #f8f8f8;
     --color-title: #007400;
     --color-text: #0e0d0d;
+    --color-link: #007bff;
 }
 
 *{
@@ -20,8 +21,17 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-start;
     gap: 1rem;
+}
+
+.link{
+    color: var(--color-link);
+    text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 .app {
@@ -46,7 +56,7 @@ body{
 
 hr{
     width: 100%;
-    margin: 20px 0;
+    margin: 5px 0;
     opacity: 0.1;
 }
 
@@ -88,6 +98,16 @@ p, label, span, button{
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 3px;
+}
+
+.loginForm,.register-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 input[type="date"] {

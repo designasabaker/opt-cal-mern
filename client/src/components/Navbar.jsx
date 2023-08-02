@@ -9,6 +9,8 @@ export function Navbar(){
 
     return(
         <div className="navbar">
+            {showLogin && <LoginBox />}
+            {showRegister && <RegisterBox />}
             {err && <div className="err">{err}</div>}
             {user ? (
                 <>
@@ -18,8 +20,6 @@ export function Navbar(){
             ) : (
                 <button onClick={()=>setShowLogin(true)}>Login</button>
             )}
-            {showLogin && <LoginBox />}
-            {showRegister && <RegisterBox />}
         </div>
     )
 }

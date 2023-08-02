@@ -1,10 +1,19 @@
 import {useUser} from "../context/UserContext.jsx";
+import { motion } from "framer-motion"
 
 export function LoginBox(){
     const {login, isLogining, setShowLogin, setShowRegister} = useUser();
     return (
-        <div className="loginBox">
+        <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+                duration: 0.3,
+                delay: 0.1,
+                ease: [0, 0.71, 0.2, 1.01]
+        }}>
             <form
+                className="loginForm"
                 onSubmit={(e)=>{
                     e.preventDefault();
                     login(e.target.username.value, e.target.password.value);
@@ -19,26 +28,38 @@ export function LoginBox(){
                     Password:
                     <input type="text" name="password" />
                 </label>
-                <input type="submit" value="Submit" />
+                <button type="submit" value="Submit" >login</button>
+                <hr />
+                <div>
+                    New user?
+                    <span
+                        className="link"
+                        onClick={()=>{
+                            setShowLogin(false);
+                            setShowRegister(true);
+                        }}>Register here</span>
+                </div>
+                <div>
+                    <button onClick={()=>setShowLogin(false)}>Close</button>
+                </div>
             </form>
-            <div>
-                New user? <span onClick={()=>{
-                    setShowLogin(false);
-                    setShowRegister(true);
-                }}>Register here</span>
-            </div>
-            <div>
-                <button onClick={()=>setShowLogin(false)}>Close</button>
-            </div>
-        </div>
+        </motion.div>
     )
 }
 
 export function RegisterBox(){
     const {register, setShowLogin, setShowRegister} = useUser();
     return (
-        <div className="registerBox">
+        <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+                duration: 0.3,
+                delay: 0.1,
+                ease: [0, 0.71, 0.2, 1.01]
+            }}>
             <form
+                className="register-form"
                 onSubmit={(e)=>{
                     e.preventDefault();
                     if(e.target.password.value !== e.target.confirmPassword.value){
@@ -60,19 +81,23 @@ export function RegisterBox(){
                     Confirm Password:
                     <input type="text" name="confirmPassword" />
                 </label>
-                <input type="submit" value="Submit" />
+                <button type="submit" value="Submit" >Register</button>
+                <hr />
+                <div>
+                    Already have an account?
+                    <span
+                        className="link"
+                        onClick={()=>{
+                            setShowLogin(true);
+                            setShowRegister(false);
+                        }}>Login here</span>
+                </div>
+                <div>
+                    <button onClick={()=>setShowRegister(false)}>Close</button>
+                </div>
             </form>
-            <div>
-                Already have an account?
-                <span onClick={()=>{
-                    setShowLogin(true);
-                    setShowRegister(false);
-                }}>Login here</span>
-            </div>
-            <div>
-                <button onClick={()=>setShowRegister(false)}>Close</button>
-            </div>
-        </div>
+
+        </motion.div>
     )
 }
 
