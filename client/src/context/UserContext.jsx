@@ -111,6 +111,7 @@ export function UserProvider({ children }) {
         setUser(user);
         setShowLogin(false); // Close the login box
         setBanner(message);
+        setErr('');
     };
 
     const logout = () => {
@@ -130,6 +131,7 @@ export function UserProvider({ children }) {
             register,
             login,
             logout,
+            err,
             showLogin,
             setShowLogin,
             showRegister,

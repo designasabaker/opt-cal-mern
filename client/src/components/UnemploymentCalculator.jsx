@@ -38,7 +38,7 @@ const UnemploymentCalculator = () => {
     const getBtnClickHandler = async () => {
         const loadedState = await getState();
         console.log('get state', loadedState);
-        if(state){
+        if(loadedState){
             try{
                 dispatch({ type: actionTypes.SET_STATE, value: loadedState });
             }
