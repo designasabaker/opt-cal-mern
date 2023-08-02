@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import TimePeriod from './TimePeriod';
 import { initialState, actionTypes, reducer } from '../reducer/UnemploymentReducer.js';
 import {useUser} from "../context/UserContext.jsx";
+import {motion} from "framer-motion";
 
 const LOCAL_STORAGE_KEY = 'OPT-state';
 
@@ -27,8 +28,7 @@ const LOCAL_STORAGE_KEY = 'OPT-state';
 // };
 
 const UnemploymentCalculator = () => {
-    const { user, getState, saveState, state, dispatch } = useUser();
-
+    const { user, getState, saveState, state, dispatch, closeLoginRegister } = useUser();
 
     const saveBtnClickHandler = () => {
         console.log('clicked')
@@ -79,9 +79,18 @@ const UnemploymentCalculator = () => {
     },[state.timePeriods, state.optStart])
 
     return (
-        <div className="app" >
-            <h1>OPT失业期计算器</h1>
-            <div className="cacu-display-container">
+        <div className="app" onClick={closeLoginRegister}>
+            <motion.h1
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 50 }}>
+                OPT失业期计算器
+            </motion.h1>
+            <motion.div
+                initial={{ y: '100vh', opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 50 }}
+                className="cacu-display-container">
                 <div className="display-container">
                     <p>{isNaN(state.totalTime) ? '请输入开始日期、每个时间段，谢谢' : `${state?.totalTime} 天`}</p>
                     <p className={"err"}>{state.error}</p>
@@ -101,12 +110,16 @@ const UnemploymentCalculator = () => {
                         <button onClick={() => dispatch({ type: actionTypes.ADD_TIME_PERIOD })}>添加新的时间段</button>
                     </div>
                 </div>
-            </div>
-            <div className="refresh-btn-container">
+            </motion.div>
+            <motion.div
+                initial={{ y: '100vh', opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 50, delay: 0.5 }}
+                className="refresh-btn-container">
                 {user && <button onClick={getBtnClickHandler}>获取我的数据</button>}
                 <button onClick={() => dispatch({ type: actionTypes.RESET })}>清空</button>
                 {user && <button onClick={saveBtnClickHandler}>保存至云端</button>}
-            </div>
+            </motion.div>
         </div>
     );
 };

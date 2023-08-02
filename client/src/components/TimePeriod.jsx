@@ -9,8 +9,9 @@ export const TimePeriod = ({ timePeriod, index, dispatch }) => {
 
         return (
             <div key={index} className="time-period">
-                <span>失业期{index + 1}：</span>
-                <label>从:</label>
+                <span className="show-on-wide-screen">失业期</span>
+                <span>{index + 1}：</span>
+                <label className="show-on-wide-screen">从:</label>
                 <input
                     type="date"
                     value={timePeriod.start}
@@ -22,7 +23,8 @@ export const TimePeriod = ({ timePeriod, index, dispatch }) => {
                     })}
                 />
 
-                <label>到:</label>
+                <label className="show-on-wide-screen">到:</label>
+                <label className="show-on-narrow-scrren">&gt;</label>
                 <input
                     type="date"
                     value={timePeriod.end}

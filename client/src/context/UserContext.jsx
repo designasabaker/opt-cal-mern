@@ -127,6 +127,12 @@ export function UserProvider({ children }) {
 
     };
 
+    const closeLoginRegister = () => {
+        setShowLogin(false);
+        setShowRegister(false);
+        setErr('')
+    }
+
     const [state, dispatch] = useReducer(reducer, initialState);
 
     return (
@@ -141,6 +147,7 @@ export function UserProvider({ children }) {
             setShowLogin,
             showRegister,
             setShowRegister,
+            closeLoginRegister,
             banner,
             getState,
             saveState,

@@ -2,7 +2,7 @@ import {useUser} from "../context/UserContext.jsx";
 import { motion } from "framer-motion"
 
 export function LoginBox(){
-    const {login, isLogining, setShowLogin, setShowRegister} = useUser();
+    const {err, login, isLogining, setShowLogin, setShowRegister} = useUser();
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
@@ -28,6 +28,7 @@ export function LoginBox(){
                     Password:
                     <input type="text" name="password" />
                 </label>
+                {err && <span className="err">{err}</span>}
                 <button type="submit" value="Submit" >login</button>
                 <hr />
                 <div>
@@ -39,16 +40,14 @@ export function LoginBox(){
                             setShowRegister(true);
                         }}>Register here</span>
                 </div>
-                <div>
-                    <button onClick={()=>setShowLogin(false)}>Close</button>
-                </div>
+                <button onClick={()=>setShowLogin(false)}>Close</button>
             </form>
         </motion.div>
     )
 }
 
 export function RegisterBox(){
-    const {register, setShowLogin, setShowRegister} = useUser();
+    const {err, register, setShowLogin, setShowRegister} = useUser();
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
@@ -81,6 +80,7 @@ export function RegisterBox(){
                     Confirm Password:
                     <input type="text" name="confirmPassword" />
                 </label>
+                {err && <span className="err">{err}</span>}
                 <button type="submit" value="Submit" >Register</button>
                 <hr />
                 <div>
