@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import {useUser} from '../context/UserContext';
 
 import {LoginBox, RegisterBox} from './LoginBox';
+import LanguageSelector from './LanguageSelector';
 
 export function Navbar(){
     const {user, banner, logout, showLogin, setShowLogin, showRegister} = useUser();
 
-
     return(
         <div className="navbar">
+            <LanguageSelector />
             {showLogin && <LoginBox />}
             {showRegister && <RegisterBox />}
             {user ? (

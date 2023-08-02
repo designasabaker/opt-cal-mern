@@ -1,7 +1,26 @@
 import React from "react";
 import { actionTypes } from "../reducer/UnemploymentReducer.js";
+import LANGUAGE from "../constants/language.js";
+import {useLanguage} from "../context/LanguageContext.jsx";
+
+const textUnemploymentTime = {
+    [LANGUAGE.SIMPLIFIED_CHINESE]: '失业期',
+    [LANGUAGE.TRADITIONAL_CHINESE]: '失業期',
+    [LANGUAGE.ENGLISH]: 'Unemployment Time',
+}
+const textDelete={
+    [LANGUAGE.SIMPLIFIED_CHINESE]: '删除',
+    [LANGUAGE.TRADITIONAL_CHINESE]: '刪除',
+    [LANGUAGE.ENGLISH]: 'Delete',
+}
+const textDays = {
+    [LANGUAGE.SIMPLIFIED_CHINESE]: '天',
+    [LANGUAGE.TRADITIONAL_CHINESE]: '天',
+    [LANGUAGE.ENGLISH]: 'days',
+}
 
 export const TimePeriod = ({ timePeriod, index, dispatch }) => {
+        const {language: lang } = useLanguage();
         const { start, end } = timePeriod;
         const startTime = new Date(start);
         const endTime = new Date(end);
@@ -9,7 +28,7 @@ export const TimePeriod = ({ timePeriod, index, dispatch }) => {
 
         return (
             <div key={index} className="time-period">
-                <span className="show-on-wide-screen">失业期</span>
+                <span className="show-on-wide-screen">{textUnemploymentTime[lang]}</span>
                 <span>{index + 1}：</span>
                 <label className="show-on-wide-screen">从:</label>
                 <input
@@ -35,8 +54,8 @@ export const TimePeriod = ({ timePeriod, index, dispatch }) => {
                             end: e.target.value
                     })}
                 />
-                <span>{isNaN(days) ? 'N/A' : days}天</span>
-                <button onClick={() => dispatch({type: actionTypes.DELETE_TIME_PERIOD, index})}>删除</button>
+                <span>{isNaN(days) ? 'N/A' : days}{textDays[lang]}</span>
+                <button onClick={() => dispatch({type: actionTypes.DELETE_TIME_PERIOD, index})}>{textDelete[lang]}</button>
             </div>
         )
 };
