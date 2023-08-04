@@ -2,7 +2,15 @@ import {useUser} from "../context/UserContext.jsx";
 import { motion } from "framer-motion"
 
 export function LoginBox(){
+    // const navigate = useNavigate ()
     const {err, login, isLogining, setShowLogin, setShowRegister} = useUser();
+    // const handleGoogleLoginSuccess = (tokenResponse) => {
+    //     const accessToken = tokenResponse.access_token;
+    // }
+    const googleLogin = () => {
+        return null
+    }
+
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
@@ -30,6 +38,7 @@ export function LoginBox(){
                 </label>
                 {err && <span className="err">{err}</span>}
                 <button type="submit" value="Submit" >login</button>
+                <button type="button" onClick={()=>googleLogin()}>Sign in with Google</button>
                 <hr />
                 <div>
                     New user?
