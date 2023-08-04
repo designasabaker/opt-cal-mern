@@ -11,8 +11,12 @@ export function UserProvider({ children }) {
     const [err, setErr] = useState('');
     const [banner, setBanner] = useState('');
 
-    const apiUrl = import.meta.env.VITE_APP_API_URL || 'http://localhost:5000';
+    const apiUrl = import.meta.env.VITE_APP_API_URL || 'http://localhost:5050';
 
+    const setTimelyBanner = (msg) => {
+        setBanner(msg);
+        setTimeout(()=>setBanner(''), 3000);
+    }
     const getState = async () => {
         const token = localStorage.getItem('jwt');
         try{
@@ -65,13 +69,13 @@ export function UserProvider({ children }) {
         console.log('Successfully saved state to database')
     }
 
-    const register = async (username, password) => {
+    const register = async (username, password, email) => {
         const response = await fetch(`${apiUrl}/users/register`, {  // Replace with your actual register endpoint
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ username, password, email }),
         });
 
         if (!response.ok) {
@@ -83,16 +87,17 @@ export function UserProvider({ children }) {
         console.log('Successfully registered');
         setShowRegister(false);
         setShowLogin(true);
+        setTimelyBanner('Successfully registered');
     }
 
-    const login = async (username, password) => {
+    const login = async (usernameOrEmail, password) => {
         setIsLogining(true);
         const response = await fetch(`${apiUrl}/users/login`, {  // Replace with your actual login endpoint
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ usernameOrEmail, password }),
         });
 
         if (!response.ok) {
@@ -118,6 +123,10 @@ export function UserProvider({ children }) {
         setIsLogining(false);
     };
 
+    const googleLogin = () => {
+        window.location.href=`${apiUrl}/auth/google`
+    }
+
     const logout = () => {
         // Implement your logout logic here
         // Then call setUser with null
@@ -141,6 +150,7 @@ export function UserProvider({ children }) {
             register,
             isLogining,
             login,
+            googleLogin,
             logout,
             err,
             showLogin,

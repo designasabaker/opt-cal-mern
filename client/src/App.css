@@ -34,6 +34,16 @@ body{
     cursor: pointer;
 }
 
+.link-sm{
+    color: var(--color-link);
+    font-size: 0.75em;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
 .app {
     display: flex;
     flex-direction: column;
