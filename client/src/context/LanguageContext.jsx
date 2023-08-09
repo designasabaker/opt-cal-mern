@@ -4,7 +4,7 @@ import LANGUAGE from "../constants/language.js";
 const LanguageContext = React.createContext();
 
 export function LanguageProvider({ children }) {
-    const [language, setLanguage] = React.useState(LANGUAGE.SIMPLIFIED_CHINESE);
+    const [language, setLanguage] = React.useState(LANGUAGE.ENGLISH);
 
     return (
         <LanguageContext.Provider value={{ language, setLanguage }}>
