@@ -1,15 +1,13 @@
 import {useUser} from "../context/UserContext.jsx";
 import { motion } from "framer-motion"
+import {useNavigate} from "react-router-dom";
 
 export function LoginBox(){
-    // const navigate = useNavigate ()
-    const {err, login, isLogining, setShowLogin, setShowRegister} = useUser();
+    const navigate = useNavigate ()
+    const {err, banner, login, googleLogin, isLogining, setShowLogin, setShowRegister} = useUser();
     // const handleGoogleLoginSuccess = (tokenResponse) => {
     //     const accessToken = tokenResponse.access_token;
     // }
-    const googleLogin = () => {
-        return null
-    }
 
     return (
         <motion.div
@@ -24,18 +22,25 @@ export function LoginBox(){
                 className="loginForm"
                 onSubmit={(e)=>{
                     e.preventDefault();
-                    login(e.target.username.value, e.target.password.value);
+                    login(e.target.usernameOrEmail.value, e.target.password.value);
                 }}
             >
                 {isLogining && <div>Logging in...</div>}
                 <label>
-                    Username:
-                    <input type="text" name="username" />
+                    Username or Email:
+                    <input type="text" name="usernameOrEmail" />
                 </label>
                 <label>
                     Password:
                     <input type="text" name="password" />
                 </label>
+                <span className="link-sm"
+                    onClick={()=>{
+                        setShowLogin(false);
+                        navigate('/forgot-password')
+                    }}
+                >Forget the password?</span>
+                {banner && <span className="banner">{banner}</span>}
                 {err && <span className="err">{err}</span>}
                 <button type="submit" value="Submit" >login</button>
                 <button type="button" onClick={()=>googleLogin()}>Sign in with Google</button>
@@ -74,12 +79,16 @@ export function RegisterBox(){
                         console.error('Passwords do not match');
                         return;
                     }
-                    register(e.target.username.value, e.target.password.value);
+                    register(e.target.username.value, e.target.password.value, e.target.email.value);
                 }}
             >
                 <label>
                     Username:
                     <input type="text" name="username" />
+                </label>
+                <label>
+                    Email:  {/* Add a new field for email */}
+                    <input type="email" name="email" />
                 </label>
                 <label>
                     Password:
