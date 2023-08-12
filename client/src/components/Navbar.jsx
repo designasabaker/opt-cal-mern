@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
 import {useUser} from '../context/UserContext';
 
 import {LoginBox, RegisterBox} from './LoginBox';
 import LanguageSelector from './LanguageSelector';
 
 export function Navbar(){
-    const {user, banner, logout, showLogin, setShowLogin, showRegister} = useUser();
+    const {user, logout, showLogin, setShowLogin, showRegister} = useUser();
 
     return(
         <div className="navbar">
@@ -14,7 +13,7 @@ export function Navbar(){
             {showRegister && <RegisterBox />}
             {user ? (
                 <>
-                    <div>Logged in as <b>{user.username}</b> {banner}</div>
+                    <div>Logged in as <b>{user.username}</b> </div>
                     <button onClick={() => logout()}>Logout</button>
                 </>
             ) : (

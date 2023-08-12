@@ -11,6 +11,7 @@ export function LoginBox(){
 
     return (
         <motion.div
+            className="login-box-container"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
@@ -43,7 +44,7 @@ export function LoginBox(){
                 {banner && <span className="banner">{banner}</span>}
                 {err && <span className="err">{err}</span>}
                 <button type="submit" value="Submit" >login</button>
-                <button type="button" onClick={()=>googleLogin()}>Sign in with Google</button>
+                {/*<button type="button" onClick={()=>googleLogin()}>Sign in with Google</button>*/}
                 <hr />
                 <div>
                     New user?

@@ -10,15 +10,21 @@ export function UserProvider({ children }) {
     const [showRegister, setShowRegister] = useState(false);
     const [err, setErr] = useState('');
     const [banner, setBanner] = useState('');
+    const [T, setT] = useState();
+    const [isGettingState, setIsGettingState] = useState(false);
+    const [isSavingState, setIsSavingState] = useState(false);
 
     const apiUrl = import.meta.env.VITE_APP_API_URL || 'http://localhost:5050';
 
     const setTimelyBanner = (msg) => {
+        clearTimeout(T);
         setBanner(msg);
-        setTimeout(()=>setBanner(''), 3000);
+        const t =setTimeout(()=>setBanner(''), 3000);
+        setT(t);
     }
     const getState = async () => {
         const token = localStorage.getItem('jwt');
+        setIsGettingState(true);
         try{
             const response = await fetch(`${apiUrl}/record`, {  // Replace with your actual state endpoint
                 method: 'GET',
@@ -36,16 +42,20 @@ export function UserProvider({ children }) {
                 return null;
             }
             console.log('GET state from database', record.state)
+            setIsGettingState(false);
+            setTimelyBanner('Successfully loaded state from database');
             return (record.state);
         }
         catch (err){
             console.log(err);
+            setIsGettingState(false);
             return null;
         }
     }
 
     const saveState = async (state) => {
         console.log("start saving state");
+        setIsSavingState(true);
         const token = localStorage.getItem('jwt');
         if (!token) {
             console.error('No JWT token found');
@@ -63,10 +73,12 @@ export function UserProvider({ children }) {
         });
         if (!response.ok) {
             console.log('Failed to save state to database')
+            setIsSavingState(false);
             // Handle error
             return;
         }
         console.log('Successfully saved state to database')
+        setIsSavingState(false);
     }
 
     const register = async (username, password, email) => {
@@ -160,7 +172,9 @@ export function UserProvider({ children }) {
             closeLoginRegister,
             banner,
             getState,
+            isGettingState,
             saveState,
+            isSavingState,
             state,
             dispatch,
         }}>

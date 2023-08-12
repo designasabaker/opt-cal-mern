@@ -76,7 +76,7 @@ const textSaveState={
 }
 
 const UnemploymentCalculator = () => {
-    const { user, getState, saveState, state, dispatch, closeLoginRegister } = useUser();
+    const { user, getState, isGettingState, isSavingState, saveState, state, dispatch, closeLoginRegister } = useUser();
     const { language: lang } = useLanguage();
 
     const saveBtnClickHandler = () => {
@@ -168,10 +168,34 @@ const UnemploymentCalculator = () => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: 'spring', stiffness: 50, delay: 0.5 }}
                 className="refresh-btn-container">
-                {user && <button onClick={getBtnClickHandler}>{textGetState[lang]}</button>}
+                {user ?
+                    <button
+                        style={{width: '132px',}}
+                        onClick={getBtnClickHandler}>
+                            {!isGettingState ? textGetState[lang] : '↺'}
+                    </button> :
+                    <button
+                        style={{width: '132px',}}
+                        className={"disable"}>
+                        {textGetState[lang]}
+                    </button>
+                }
                 <button onClick={() => dispatch({ type: actionTypes.RESET })}>{textRest[lang]}</button>
-                {user && <button onClick={saveBtnClickHandler}>{textSaveState[lang]}</button>}
+                {user ?
+                    <button
+                        style={{width: '132px',}}
+                        onClick={saveBtnClickHandler}>
+                            {!isSavingState ? textSaveState[lang] : '↺'}
+                    </button>:
+                    <button
+                        style={{width: '132px',}}
+                        className={"disable"}>
+                            {textSaveState[lang]}
+                    </button>}
             </motion.div>
+            <div>
+                {!user && <span className={'notation'}>Log in to get and save state.</span>}
+            </div>
         </div>
     );
 };

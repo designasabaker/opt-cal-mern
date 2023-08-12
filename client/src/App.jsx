@@ -8,12 +8,14 @@ import Home from "./pages/Home.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPasswordInstructions from "./pages/ResetPasswordInstructions.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
+import MsgBanner from "./components/MsgBanner.jsx";
 
 function App() {
   return (
     <UserProvider>
         <LanguageProvider>
             <BrowserRouter>
+                <MsgBanner />
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
